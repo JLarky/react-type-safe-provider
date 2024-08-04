@@ -28,7 +28,11 @@ export function createTypeSafeContext<
   displayName: Name,
   useProviderValue: () => T,
   defaultValue: DefaultValue = undefined as DefaultValue
-) {
+): AddPrefix<Name, { Provider: typeof Provider }> &
+  AddSuffix<
+    Name,
+    { use: typeof useContextValue; useSafe: typeof useSafeContextValue }
+  > {
   type Context = ReturnType<typeof useProviderValue>;
 
   const Context = createContext<Context | DefaultValue>(defaultValue);

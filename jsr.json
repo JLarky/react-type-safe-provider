@@ -1,6 +1,6 @@
 {
   "name": "@jlarky/react-type-safe-provider",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "include": ["index.ts"],
   "exclude": [
     "node_modules",
