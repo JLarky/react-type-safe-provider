@@ -1,0 +1,5 @@
+{
+  "name": "@jlarky/react-type-safe-provider",
+  "version": "0.0.1",
+  "exports": "./index.ts"
+}
