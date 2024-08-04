@@ -8,7 +8,7 @@ import {
 
 export const Example = () => {
   return (
-    <DarkProvider>
+    <DarkProvider value={undefined}>
       <Test1 />
       <Test2 />
     </DarkProvider>

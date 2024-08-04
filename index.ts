@@ -1,6 +1,6 @@
-import React from "react";
+// from https://jsr.io/@jlarky/react-type-safe-provider
+import React, { createContext, useContext } from "react";
 import type { PropsWithChildren } from "react";
-import { createContext, useContext, useMemo, useState } from "react";
 
 /**
  * Create a type-safe context with a provider and hooks.
@@ -8,7 +8,7 @@ import { createContext, useContext, useMemo, useState } from "react";
  * Example:
  * ```tsx
  * import { useMemo, useState } from "react";
- * import {createTypeSafeContext} from "@jlarky/react-type-safe-provider";
+ * import { createTypeSafeContext } from "@jlarky/react-type-safe-provider";
  *
  * function useProviderValue() {
  *   const [isDark, setIsDark] = useState(false);
@@ -23,10 +23,11 @@ import { createContext, useContext, useMemo, useState } from "react";
 export function createTypeSafeContext<
   T,
   Name extends string,
-  DefaultValue = undefined
+  DefaultValue = undefined,
+  ProviderValue = undefined
 >(
   displayName: Name,
-  useProviderValue: () => T,
+  useProviderValue: (value: ProviderValue) => T,
   defaultValue: DefaultValue = undefined as DefaultValue
 ): AddPrefix<Name, { Provider: typeof Provider }> &
   AddSuffix<
@@ -39,9 +40,9 @@ export function createTypeSafeContext<
   const providerDisplayName = `${displayName}Provider` as const;
   Context.displayName = `${displayName}Provider`;
 
-  const Provider = (props: PropsWithChildren) => {
-    const value = useProviderValue();
-    return React.createElement(Context.Provider, { value, ...props });
+  const Provider = (props: PropsWithChildren<{ value: ProviderValue }>) => {
+    const value = useProviderValue(props.value);
+    return React.createElement(Context.Provider, { value }, props.children);
   };
 
   function useSafeContextValue() {
