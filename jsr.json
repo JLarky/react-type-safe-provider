@@ -1,5 +1,13 @@
 {
   "name": "@jlarky/react-type-safe-provider",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "include": ["index.ts"],
+  "exclude": [
+    "node_modules",
+    "examples",
+    "biome.json",
+    "jsr.json",
+    "package-lock.json"
+  ],
   "exports": "./index.ts"
 }
